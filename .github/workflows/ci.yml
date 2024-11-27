@@ -1,0 +1,54 @@
+name: dev_ci 
+
+on:
+   pull_request:
+      branches: 
+        - dev
+        - master 
+
+jobs: 
+  test:
+    name: "Run basic build"
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults: 
+        run:
+            shell: bash
+
+    
+    steps: 
+        - name: 'checkout repo'
+          uses: actions/checkout@v2
+
+        - name: 'set up env'
+          run: |
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+            cp .env ./server/.env 
+        
+        - name: 'set up server dependencies'
+          working-directory: ./server
+          run: npm i
+
+        - name: 'synch prisma'
+          working-directory: ./server
+          run: npx prisma generate
+        
+        - name: 'seed prima' 
+          working-directory: ./server 
+          run: npx prisma db seed
+
+        - name: 'start server'
+          working-directory: ./server 
+          run: npm start:dev 
+
+        - name: 'set up client server'
+          working-directory: ./client
+          run: npm i 
+        
+        - name: 'start client server'
+          working-directory:   ./client
+          run: npm run dev 
+          
+
+        

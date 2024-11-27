@@ -95,3 +95,5 @@ terraform.tfstate
 terraform.tfstate.backup
 deployer_key
 deployer_key.pub
+
+.env
