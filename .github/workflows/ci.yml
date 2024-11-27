@@ -37,7 +37,7 @@ jobs:
 
         - name: 'start server'
           working-directory: ./server 
-          run: npm start:dev 
+          run: npm run start:dev 
 
         - name: 'set up client server'
           working-directory: ./client
