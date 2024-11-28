@@ -17,3 +17,5 @@ The **client** folder houses the frontend of the application, while the **server
 - Run **npx prisma generate** to generate prisma schema
 - Run **npx prisma db seed** to run the seeds
 - After the packages are downloaded and db is setup, run **npm run start:dev** to run the application
+
+

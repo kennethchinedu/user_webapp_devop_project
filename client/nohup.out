@@ -1,0 +1,57 @@
+
+> user-dashboard-client@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.3
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for server...
+ ✓ (pwa) Compiling for client (static)...
+ ○ (pwa) Service worker: /Users/kennethchinedu/Desktop/Projects/user_dash/user-dashboard/client/public/sw.js
+ ○ (pwa)   URL: /sw.js
+ ○ (pwa)   Scope: /
+ ○ (pwa) Building in development mode, caching and precaching are disabled for the most part. This means that offline support is disabled, but you can continue developing other functions in service worker.
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ✓ Ready in 8.6s
+ ○ Compiling / ...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ✓ Compiled / in 24.8s (1422 modules)
+redux-persist failed to create sync storage. falling back to noop storage.
+ GET / 200 in 25248ms
+ GET / 200 in 52ms
+ GET / 200 in 123ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 720ms (734 modules)
+ GET /favicon.ico 200 in 1197ms
+redux-persist failed to create sync storage. falling back to noop storage.
+ GET / 200 in 1356ms
+ GET / 200 in 212ms
+ GET / 200 in 36ms
+ GET /favicon.ico 200 in 27ms
+ GET / 200 in 26ms
+ GET / 200 in 734ms
+ GET / 200 in 77ms
+ GET / 200 in 20ms
+ GET /favicon.ico 200 in 17ms
+ GET / 200 in 221ms
+ GET / 200 in 53ms
+ GET /favicon.ico 200 in 21ms
+ GET / 200 in 41ms
+ GET / 200 in 36ms
+ GET / 200 in 27ms
+ GET /favicon.ico 200 in 12ms
+ GET / 200 in 22ms
+ GET / 200 in 256ms
+ GET / 200 in 65ms
+ GET /favicon.ico 200 in 58ms
+ GET / 200 in 60ms
+ GET / 200 in 560ms
+ GET / 200 in 84ms
+ GET /favicon.ico 200 in 33ms
+ GET / 200 in 113ms
