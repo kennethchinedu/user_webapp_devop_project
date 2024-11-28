@@ -31,3 +31,27 @@ redux-persist failed to create sync storage. falling back to noop storage.
  GET /favicon.ico 200 in 1197ms
 redux-persist failed to create sync storage. falling back to noop storage.
  GET / 200 in 1356ms
+ GET / 200 in 212ms
+ GET / 200 in 36ms
+ GET /favicon.ico 200 in 27ms
+ GET / 200 in 26ms
+ GET / 200 in 734ms
+ GET / 200 in 77ms
+ GET / 200 in 20ms
+ GET /favicon.ico 200 in 17ms
+ GET / 200 in 221ms
+ GET / 200 in 53ms
+ GET /favicon.ico 200 in 21ms
+ GET / 200 in 41ms
+ GET / 200 in 36ms
+ GET / 200 in 27ms
+ GET /favicon.ico 200 in 12ms
+ GET / 200 in 22ms
+ GET / 200 in 256ms
+ GET / 200 in 65ms
+ GET /favicon.ico 200 in 58ms
+ GET / 200 in 60ms
+ GET / 200 in 560ms
+ GET / 200 in 84ms
+ GET /favicon.ico 200 in 33ms
+ GET / 200 in 113ms

@@ -35,19 +35,19 @@ jobs:
           run: npx prisma generate
         
 
-        - name: 'start server'
-          working-directory: ./server 
-          run:  npm run start:dev 
-          background: true
+        # - name: 'start server'
+        #   working-directory: ./server 
+        #   run:  npm run start:dev 
+          
 
         - name: 'set up client server'
           working-directory: ./client
           run: npm i 
         
-        - name: 'start client server'
-          working-directory:   ./client
-          run:  npm run dev 
-          background: true
+        # - name: 'start client server'
+        #   working-directory:   ./client
+        #   run:  npm run dev 
+         
           
         - name: 'job complete'
           run: echo "job  is complete"
