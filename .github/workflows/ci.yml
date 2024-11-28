@@ -34,21 +34,20 @@ jobs:
           working-directory: ./server
           run: npx prisma generate
         
-        - name: 'seed prima' 
-          working-directory: ./server 
-          run: npx prisma db seed
 
-        - name: 'start server'
-          working-directory: ./server 
-          run: npm start:dev 
+        # - name: 'start server'
+        #   working-directory: ./server 
+        #   run:  npm run start:dev 
+          
 
         - name: 'set up client server'
           working-directory: ./client
           run: npm i 
         
-        - name: 'start client server'
-          working-directory:   ./client
-          run: npm run dev 
+        # - name: 'start client server'
+        #   working-directory:   ./client
+        #   run:  npm run dev 
+         
           
-
-        
+        - name: 'job complete'
+          run: echo "job  is complete"
