@@ -37,7 +37,8 @@ jobs:
 
         - name: 'start server'
           working-directory: ./server 
-          run: nohup npm run start:dev 
+          run:  npm run start:dev 
+          background: true
 
         - name: 'set up client server'
           working-directory: ./client
@@ -45,7 +46,8 @@ jobs:
         
         - name: 'start client server'
           working-directory:   ./client
-          run: nohup npm run dev 
+          run:  npm run dev 
+          background: true
           
         - name: 'job complete'
           run: echo "job  is complete"
