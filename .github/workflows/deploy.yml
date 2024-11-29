@@ -1,0 +1,129 @@
+name: deploy_app
+
+on: 
+  pull_request:
+    branches: 
+      - master 
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION:  ${{ secrets.REGION }}
+
+jobs: 
+  deploy:
+    name: 'Deploy app to prod'
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        shell: bash 
+
+    steps:
+      - name: 'Checkout repo'
+        uses: actions/checkout@v2
+
+      - name: 'Set up Terraform'
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+          terraform_version: 1.0.11 
+        
+      - name: 'Terraform Init'
+        run: terraform init -lock=false
+        working-directory: ./infra
+  
+      - name: 'Terraform Plan'
+        run: terraform plan -var-file=terraform.tfvars -lock=false
+        working-directory: ./infra
+        
+      - name: 'Set up environment variables'
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          cp .env ./server/.env 
+
+      - name: 'Terraform Apply'
+        run: terraform apply -auto-approve -var-file=terraform.tfvars -lock=false
+        working-directory: ./infra
+
+      - name: Capture Terraform Outputs
+        id: capture_outputs
+        working-directory: ./infra
+        run: |
+            EC2_PUBLIC_IP1=$(terraform output -raw ec2_public_ip1 2>/dev/null || echo "")
+            EC2_PUBLIC_IP2=$(terraform output -raw ec2_public_ip2 2>/dev/null || echo "")
+            USER=$(terraform output -raw user_name 2>/dev/null || echo "")
+
+
+            echo "EC2_PUBLIC_IP1=$EC2_PUBLIC_IP1" >> $GITHUB_ENV
+            echo "EC2_PUBLIC_IP2=$EC2_PUBLIC_IP2" >> $GITHUB_ENV
+            echo "USER=$USER" >> $GITHUB_ENV
+
+      - name: Set up SSH key1
+        run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_PRIVATE_KEY1 }}" > ~/.ssh/private_key
+            chmod 600 ~/.ssh/private_key
+
+      - name: Set up SSH key2
+        run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_PRIVATE_KEY2 }}" > ~/.ssh/private_key
+            chmod 600 ~/.ssh/private_key 
+
+      - name: Transfer server_setup.sh to server1
+        # Using scp to transfer server_setup.sh to the EC2 instance
+        run: |
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key server_setup.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/server_setup.sh 
+            echo "copy successful"
+
+      - name: Transfer server_setup.sh to server2
+        # Using scp to transfer server_setup.sh to the EC2 instance
+        run: |
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key server_setup.sh ${USER}@${EC2_PUBLIC_IP2}:/home/${USER}/server_setup.sh 
+            echo "copy successful"
+     
+
+      - name: Deploy to EC2
+        run: |
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${USER}@${EC2_PUBLIC_IP1} "
+            echo 'Sign-in successful, initiating setup...';
+            
+            # Export environment variables for use in the script
+            export DATABASE_URL=${DATABASE_URL};
+            export JWT_SECRET=${JWT_SECRET};
+
+        
+            # Make sure the server_setup.sh file is executable
+            chmod +x ./start_app.sh;
+
+            # Run the server setup script
+            ./start_app.sh;
+            "
+
+      - name: Deploy to EC2
+        run: |
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${USER}@${EC2_PUBLIC_IP2} "
+            echo 'Sign-in successful, initiating setup...';
+            
+            # Export environment variables for use in the script
+            export DATABASE_URL=${DATABASE_URL};
+            export JWT_SECRET=${JWT_SECRET};
+
+        
+            # Make sure the server_setup.sh file is executable
+            chmod +x ./start_app.sh;
+
+            # Run the server setup script
+            ./start_app.sh;
+            "
+
+
+    #   - name: 'Set up server dependencies'
+    #     working-directory: ./server
+    #     run: npm i
+  
+    #   - name: 'Synchronize Prisma'
+    #     working-directory: ./server
+    #     run: npx prisma generate
