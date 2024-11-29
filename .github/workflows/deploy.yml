@@ -63,31 +63,31 @@ jobs:
       - name: Set up SSH key1
         run: |
             mkdir -p ~/.ssh
-            echo "${{ secrets.SSH_PRIVATE_KEY1 }}" > ~/.ssh/private_key
-            chmod 600 ~/.ssh/private_key
+            echo "${{ secrets.SSH_PRIVATE_KEY1 }}" > ~/.ssh/private_key1
+            chmod 600 ~/.ssh/private_key1
 
       - name: Set up SSH key2
         run: |
             mkdir -p ~/.ssh
-            echo "${{ secrets.SSH_PRIVATE_KEY2 }}" > ~/.ssh/private_key
-            chmod 600 ~/.ssh/private_key 
+            echo "${{ secrets.SSH_PRIVATE_KEY2 }}" > ~/.ssh/private_key2
+            chmod 600 ~/.ssh/private_key2
 
       - name: Transfer server_setup.sh to server1
         # Using scp to transfer server_setup.sh to the EC2 instance
         run: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key start_app.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/server_setup.sh 
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key1 start_app.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/sstart_app.sh 
             echo "copy successful"
 
       - name: Transfer server_setup.sh to server2
         # Using scp to transfer server_setup.sh to the EC2 instance
         run: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key start_app.sh ${USER}@${EC2_PUBLIC_IP2}:/home/${USER}/server_setup.sh 
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key2 start_app.sh ${USER}@${EC2_PUBLIC_IP2}:/home/${USER}/start_app.sh
             echo "copy successful"
      
 
       - name: Deploy to EC2
         run: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${USER}@${EC2_PUBLIC_IP1} "
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key1 ${USER}@${EC2_PUBLIC_IP1} "
             echo 'Sign-in successful, initiating setup...';
             
             # Export environment variables for use in the script
@@ -104,7 +104,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${USER}@${EC2_PUBLIC_IP2} "
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key2 ${USER}@${EC2_PUBLIC_IP2} "
             echo 'Sign-in successful, initiating setup...';
             
             # Export environment variables for use in the script
