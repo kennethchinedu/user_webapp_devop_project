@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Ensure the app directory exists and clone the repo if not already cloned
+if [ ! -d "~/app_directory/user-webapp-devop-project" ]; then
+    echo "Repository not found. Cloning..."
+    git clone https://github.com/kennethchinedu/user_webapp_devop_project ~/app_directory/user-webapp-devop-project
+else
+    echo "Repository already cloned"
+fi
+
 # Export environment variables
 echo "export DATABASE_URL=${DATABASE_URL}" >> ~/.bashrc
 echo "export POSTGRES_DB=${POSTGRES_DB}" >> ~/.bashrc
@@ -17,14 +25,14 @@ if ! command -v npm &> /dev/null; then
 fi
 
 # Navigate to the backend directory and start the server
-cd ~/app_directory/user-dashboard/server || { echo "Backend directory not found"; exit 1; }
+cd ~/app_directory/user-webapp-devop-project/server || { echo "Backend directory not found"; exit 1; }
 echo "Starting backend"
 npm install
 npm run start:dev &
 echo "Backend started successfully"
 
 # Navigate to the frontend directory and start the client
-cd ~/app_directory/user-dashboard/client || { echo "Frontend directory not found"; exit 1; }
+cd ~/app_directory/user-webapp-devop-project/client || { echo "Frontend directory not found"; exit 1; }
 echo "Starting frontend"
 npm install
 npm run dev &
