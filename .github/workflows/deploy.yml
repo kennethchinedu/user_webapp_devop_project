@@ -114,13 +114,9 @@ jobs:
             export DATABASE_URL=${DATABASE_URL};
             export JWT_SECRET=${JWT_SECRET};
         
-            if [ ! -d '~/app_directory' ]; then
-              echo 'Cloning repository...';
-              git clone https://${GITHUB_PAT}@github.com/kennethchinedu/user_webapp_devop_project ~/app_directory;
-            else
-              echo 'Repository exists. Pulling latest changes...';
-              cd ~/app_directory && git pull;
-            fi
+            
+            git clone https://${GITHUB_PAT}@github.com/kennethchinedu/user_webapp_devop_project ~/app_directory;
+            
         
             # Make sure the server_setup.sh file is executable
             chmod +x ./start_app.sh;
