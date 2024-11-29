@@ -113,7 +113,10 @@ jobs:
             # Export environment variables for use in the script
             export DATABASE_URL=${DATABASE_URL};
             export JWT_SECRET=${JWT_SECRET};
-
+        
+            
+            git clone https://${GITHUB_PAT}@github.com/kennethchinedu/user_webapp_devop_project ~/app_directory;
+            
         
             # Make sure the server_setup.sh file is executable
             chmod +x ./start_app.sh;
@@ -123,10 +126,3 @@ jobs:
             "
 
 
-    #   - name: 'Set up server dependencies'
-    #     working-directory: ./server
-    #     run: npm i
-  
-    #   - name: 'Synchronize Prisma'
-    #     working-directory: ./server
-    #     run: npx prisma generate
