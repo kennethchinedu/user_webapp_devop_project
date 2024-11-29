@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: 
       - master 
+  push:
+    branches: 
+      - master 
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -75,7 +78,7 @@ jobs:
       - name: Transfer server_setup.sh to server1
         # Using scp to transfer server_setup.sh to the EC2 instance
         run: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key1 start_app.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/sstart_app.sh 
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key1 start_app.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/start_app.sh 
             echo "copy successful"
 
       - name: Transfer server_setup.sh to server2
