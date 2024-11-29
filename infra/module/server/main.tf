@@ -116,7 +116,7 @@ resource "aws_instance" "server2" {
   user_data = base64encode(file("setup.sh"))
 
   tags = {
-    Name = "dev-server1"
+    Name = "dev-server2"
   }
 
 }

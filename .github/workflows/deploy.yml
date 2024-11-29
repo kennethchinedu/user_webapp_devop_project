@@ -75,13 +75,13 @@ jobs:
       - name: Transfer server_setup.sh to server1
         # Using scp to transfer server_setup.sh to the EC2 instance
         run: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key server_setup.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/server_setup.sh 
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key start_app.sh ${USER}@${EC2_PUBLIC_IP1}:/home/${USER}/server_setup.sh 
             echo "copy successful"
 
       - name: Transfer server_setup.sh to server2
         # Using scp to transfer server_setup.sh to the EC2 instance
         run: |
-            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key server_setup.sh ${USER}@${EC2_PUBLIC_IP2}:/home/${USER}/server_setup.sh 
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/private_key start_app.sh ${USER}@${EC2_PUBLIC_IP2}:/home/${USER}/server_setup.sh 
             echo "copy successful"
      
 
