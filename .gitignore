@@ -90,7 +90,7 @@
 
 /infra/.terraform.lock.hcl
 /infra/.terraform/
-/infra/terraform.tfvars
+# /infra/terraform.tfvars
 terraform.tfstate
 terraform.tfstate.backup
 deployer_key
