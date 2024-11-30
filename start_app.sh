@@ -25,18 +25,27 @@ if ! command -v npm &> /dev/null; then
     sudo apt-get install -y nodejs
 fi
 
+
+# Install PM2 process manager
+if ! command -v pm2 &> /dev/null; then
+    echo "PM2 not found, installing..."
+    sudo npm install -g pm2
+fi 
+
+
+
 # Navigate to the backend directory and start the server
 cd ~/app_directory/user-webapp-devop-project/server || { echo "Backend directory not found"; exit 1; }
 echo "Starting backend"
 npm install
-npm run start:dev &
+pm2 start npm --name "backend" -- run start:dev
 echo "Backend started successfully"
 
 # Navigate to the frontend directory and start the client
 cd ~/app_directory/user-webapp-devop-project/client || { echo "Frontend directory not found"; exit 1; }
 echo "Starting frontend"
 npm install
-npm run dev &
+pm2 start npm --name "frontend" -- run dev
 echo "Frontend started successfully"
 
 
