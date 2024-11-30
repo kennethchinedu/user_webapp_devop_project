@@ -9,11 +9,12 @@ else
 fi
 
 # Export environment variables
-echo "export DATABASE_URL=${DATABASE_URL}" >> ~/.bashrc
-echo "export POSTGRES_DB=${POSTGRES_DB}" >> ~/.bashrc
+echo "export DATABASE_URL=${DATABASE_URL}" >> ~/.env
+echo "export POSTGRES_DB=${POSTGRES_DB}" >> ~/.env
+cp ~/.env ~/app_directory/user-webapp-devop-project/server/.env
 
-# Source .bashrc to apply changes immediately
-source ~/.bashrc
+
+
 
 echo "Environmental variables added successfully"
 
@@ -37,3 +38,6 @@ echo "Starting frontend"
 npm install
 npm run dev &
 echo "Frontend started successfully"
+
+
+echo "app is running successfully"
