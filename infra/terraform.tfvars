@@ -8,4 +8,4 @@ availability_zone_b = "us-east-1b"
 
 ami = "ami-0a0e5d9c7acc336f1"
 
-instance_type = "t2.micro"
+instance_type = "t2.medium"
