@@ -50,3 +50,4 @@ echo "Frontend started successfully"
 
 
 echo "app is running successfully"
+

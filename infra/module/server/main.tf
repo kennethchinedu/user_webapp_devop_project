@@ -159,7 +159,7 @@ resource "aws_lb_target_group_attachment" "attach_server1" {
 resource "aws_lb_target_group_attachment" "attach_server2" {
   target_group_arn = aws_lb_target_group.tg.arn 
   target_id = aws_instance.server2.id 
-  port = 80
+  port = 3000
 }
 
 resource "aws_lb_listener" "lb_listener" {
